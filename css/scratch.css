@@ -1,0 +1,75 @@
+.common{
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.header{
+    background-color:gray;
+    color:black;
+    height: 100px;
+    line-height: 100px;
+}
+
+.common.mainbody {
+    background-color: burlywood;
+    text-align: center;
+  }
+
+  ol, ul {
+    display: inline-block;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    text-align: left;
+  }
+
+  .tableauPlaceholder {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+  }
+  
+.footer{
+    position: fixed;
+    background-color: black;
+    color: white;
+    bottom: 0px;
+    left: 5px;
+    right: 5px;
+    height: 25px;
+    line-height: 25px;
+}
+
+img{
+    display: block;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+iframe {
+    display: block;
+    margin-left:auto;
+    margin-right: auto;      /* centers the video horizontally */
+    max-width: 100%;         /* keeps it responsive */
+    width: 560px;            /* ideal desktop size, scales on mobile */
+    height: 315px;
+    border-radius: 10px;
+  }
+
+nav{
+    background-color: lightgray;
+    padding:10px;
+    overflow: hidden;
+}
+
+nav a{
+    color:#333;
+    text-decoration: #333;
+    padding: 20px;
+    font-weight: bold;
+}
+
+nav a:hover{
+    background-color: #ccc
+
+}

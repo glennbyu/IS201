@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fun Date Idea Generator</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(135deg, #ffe4e1, #fff0f5);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #b03060;
+      font-size: 28px;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #c2185b;
+    }
+
+    #surpriseBtn {
+      background-color: #ff69b4;
+    }
+
+    #surpriseBtn:hover {
+      background-color: #e75480;
+    }
+
+    #anotherBtn {
+      background-color: #6c63ff;
+      margin-top: 10px;
+    }
+
+    #anotherBtn:hover {
+      background-color: #574dcf;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #555;
+    }
+
+    .heart {
+      font-size: 24px;
+      color: #ff6f91;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖 Date Idea Generator 💖</h1>
+
+    <select id="stage">
+      <option value="">Select relationship stage</option>
+      <option value="first">First Date</option>
+      <option value="second_plus">2nd+ Date</option>
+      <option value="relationship">In a Relationship</option>
+    </select>
+
+    <select id="interest">
+      <option value="">Select interest type</option>
+      <option value="sports">Sports</option>
+      <option value="crafts">Crafts</option>
+      <option value="travel">Travel</option>
+      <option value="other">Other</option>
+    </select>
+
+    <button id="generateBtn">Generate Date Idea</button>
+    <button id="surpriseBtn">💫 Surprise Me!</button>
+
+    <div id="result"></div>
+    <button id="anotherBtn" style="display:none;">Try Another Idea</button>
+  </div>
+
+  <script>
+    const ideas = {
+      first: {
+        sports: [
+          "Mini-golf at a local course",
+          "Attend a minor league baseball game",
+          "Try a rock climbing gym",
+          "Go bowling with fun challenges",
+          "Do a yoga class together",
+          "Take a fun tennis lesson",
+          "Play ping pong at a bar",
+          "Try disc golf at a park",
+          "Do an outdoor obstacle course",
+          "Rent scooters and cruise a trail"
+        ],
+        crafts: [
+          "Paint pottery at a studio",
+          "Attend a beginner's painting class",
+          "Make candles or soap together",
+          "Do a paint-and-sip night",
+          "Create your own greeting cards",
+          "Decorate mugs for each other",
+          "Try origami or paper crafts",
+          "Build LEGO flower bouquets",
+          "Craft your own bath bombs",
+          "Color in adult coloring books"
+        ],
+        travel: [
+          "Explore a nearby town for a few hours",
+          "Do a food truck crawl in a new city",
+          "Visit a botanical garden",
+          "Try a ferry ride with great views",
+          "Take a spontaneous train ride",
+          "Go on a local street art walk",
+          "Visit a tourist spot like a lighthouse",
+          "Check out a rooftop bar",
+          "Walk a scenic nature trail",
+          "Take a trolley or bus tour"
+        ],
+        other: [
+          "Go to a quirky museum",
+          "Grab coffee and people-watch",
+          "Visit a farmer’s market",
+          "Play board games at a café",
+          "Go to a local trivia night",
+          "Do a bookstore scavenger hunt",
+          "Walk shelter dogs together",
+          "Do a personality quiz and compare",
+          "Take a sunset walk",
+          "Visit a cat café or petting zoo"
+        ]
+      },
+      second_plus: {
+        sports: [
+          "Try axe throwing",
+          "Play tennis or pickleball",
+          "Go hiking in a nature reserve",
+          "Take a dance class",
+          "Bike to a picnic spot",
+          "Try bouldering at a new gym",
+          "Go paddleboarding or kayaking",
+          "Do a sunrise hike together",
+          "Join a dodgeball drop-in game",
+          "Go rollerskating or ice skating"
+        ],
+        crafts: [
+          "Build a birdhouse or model",
+          "Try clay sculpture",
+          "DIY home décor",
+          "Make a vision board",
+          "Take a glassblowing demo",
+          "Stencil your own t-shirts",
+          "Do a digital art challenge",
+          "Take a calligraphy class",
+          "Make beaded jewelry",
+          "Decorate cupcakes together"
+        ],
+        travel: [
+          "Weekend road trip with no plan",
+          "Book a random Airbnb nearby",
+          "Visit a winery or brewery",
+          "Explore a historic town",
+          "Hop on a boat tour",
+          "Plan a vintage shop road trip",
+          "Visit an offbeat museum",
+          "Find a secret local attraction",
+          "Do a coffee shop crawl",
+          "Take a short scenic flight"
+        ],
+        other: [
+          "Visit an escape room",
+          "Try geocaching",
+          "Do karaoke night",
+          "Stargaze with blankets",
+          "See an improv or comedy show",
+          "Recreate a movie date at home",
+          "Do blindfolded taste tests",
+          "Make TikToks together",
+          "Do a couples Q&A night",
+          "Go to a psychic or tarot reading"
+        ]
+      },
+      relationship: {
+        sports: [
+          "Join a rec league together",
+          "Do a mud run or fun race",
+          "Watch a big game at a bar",
+          "Train for a 5k together",
+          "One-on-one basketball",
+          "Take a hot yoga class",
+          "Do a partner acro yoga session",
+          "Try fencing or archery",
+          "Go horseback riding",
+          "Go snowboarding or skiing"
+        ],
+        crafts: [
+          "Pottery wheel class",
+          "Make matching mugs",
+          "Upcycle furniture",
+          "Scrapbook your memories",
+          "Design t-shirts for each other",
+          "Try soapstone carving",
+          "Build IKEA furniture together (fun chaos!)",
+          "Make a homemade cookbook",
+          "Create a 'relationship yearbook'",
+          "Make your own holiday ornaments"
+        ],
+        travel: [
+          "Plan a surprise getaway",
+          "Staycation in a hotel",
+          "Trip to beach or mountains",
+          "Themed road trip (i.e. donut shops!)",
+          "Visit a hot spring resort",
+          "Rent a camper for a night",
+          "Book a mystery travel service",
+          "Find a romantic castle to tour",
+          "Do a mountain picnic",
+          "Go ziplining or skydiving"
+        ],
+        other: [
+          "Cook a 3-course meal together",
+          "Binge a show with themed snacks",
+          "Write bucket lists and share",
+          "Volunteer at a charity",
+          "Recreate your first date",
+          "Build a blanket fort and movie night",
+          "Do a digital detox day",
+          "Make playlists for each other",
+          "Do a relationship quiz game",
+          "Slow dance in the living room"
+        ]
+      }
+    };
+
+    const stageSelect = document.getElementById("stage");
+    const interestSelect = document.getElementById("interest");
+    const resultDiv = document.getElementById("result");
+    const generateBtn = document.getElementById("generateBtn");
+    const surpriseBtn = document.getElementById("surpriseBtn");
+    const anotherBtn = document.getElementById("anotherBtn");
+
+    function getRandomIdeaFrom(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function generateIdea(useSurprise = false) {
+      let ideaList;
+
+      if (useSurprise) {
+        const allIdeas = Object.values(ideas).flatMap(stage =>
+          Object.values(stage).flat()
+        );
+        ideaList = allIdeas;
+      } else {
+        const stage = stageSelect.value;
+        const interest = interestSelect.value;
+
+        if (!stage || !interest) {
+          resultDiv.textContent = "Please select both relationship stage and interest type.";
+          return;
+        }
+
+        ideaList = ideas[stage][interest];
+      }
+
+      const randomIdea = getRandomIdeaFrom(ideaList);
+      resultDiv.textContent = `💡 Idea: ${randomIdea}`;
+      anotherBtn.style.display = "inline-block";
+    }
+
+    generateBtn.addEventListener("click", () => generateIdea(false));
+    surpriseBtn.addEventListener("click", () => generateIdea(true));
+    anotherBtn.addEventListener("click", () => {
+      if (stageSelect.value && interestSelect.value) {
+        generateIdea(false);
+      } else {
+        generateIdea(true);
+      }
+    });
+  </script>
+</body>
+</html>
